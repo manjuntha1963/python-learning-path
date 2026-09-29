@@ -36,7 +36,39 @@ Python can calculate before it displays a result. We do not put the calculation 
 print(10 + 5)
 ```
 
+### Common mistakes
+
+#### Correct code
+
+```python
+print("Welcome to Python")
+```
+
+#### Wrong code
+
+```python
+print "Welcome to Python"
+```
+
+#### Error
+
+```text
+SyntaxError: Missing parentheses in call to 'print'. Did you mean print(...)?
+```
+
+#### Why it happens
+
+In Python 3, `print` is a function and must use parentheses. Older Python versions allowed `print` without parentheses, but Python 3 requires them.
+
+#### How to fix it
+
+```python
+print("Welcome to Python")
+```
+
 **Practise:** Print your name, your learning goal, and the result of `25 - 7`.
+
+---
 
 ## 2. Variables and names
 
@@ -81,9 +113,44 @@ tasks_completed = tasks_completed + 1
 print(tasks_completed)
 ```
 
+### Common mistakes
+
+#### Correct code
+
+```python
+student_name = "Priya"
+print(student_name)
+```
+
+#### Wrong code
+
+```python
+print(student_name)
+student_name = "Priya"
+```
+
+#### Error
+
+```text
+NameError: name 'student_name' is not defined
+```
+
+#### Why it happens
+
+Python reads code from top to bottom. The variable `student_name` is created only after `print(student_name)` runs.
+
+#### How to fix it
+
+```python
+student_name = "Priya"
+print(student_name)
+```
+
 **Naming rule:** Use `snake_case`, such as `employee_age`. Avoid unclear names such as `a` unless the meaning is obvious in a very small loop.
 
 **Practise:** Create variables named `student_name`, `course_name`, and `lessons_completed`, then print them.
+
+---
 
 ## 3. Basic data types
 
@@ -124,7 +191,42 @@ if is_logged_in:
     print("Welcome back")
 ```
 
+### Common mistakes
+
+#### Correct code
+
+```python
+city_name = "London"
+print(city_name)
+```
+
+#### Wrong code
+
+```python
+city_name = London
+print(city_name)
+```
+
+#### Error
+
+```text
+NameError: name 'London' is not defined
+```
+
+#### Why it happens
+
+Without quotation marks, Python treats `London` as a variable name instead of text.
+
+#### How to fix it
+
+```python
+city_name = "London"
+print(city_name)
+```
+
 **Practise:** Create one string, one integer, one float, and one Boolean. Print each value and its type.
+
+---
 
 ## 4. User input and conversion
 
@@ -168,7 +270,42 @@ next_year_age = current_age + 1
 print(f"Next year you will be {next_year_age}.")
 ```
 
+### Common mistakes
+
+#### Correct code
+
+```python
+age = int(input("How old are you? "))
+print(age + 1)
+```
+
+#### Wrong code
+
+```python
+age = input("How old are you? ")
+print(age + 1)
+```
+
+#### Error
+
+```text
+TypeError: can only concatenate str (not "int") to str
+```
+
+#### Why it happens
+
+`input()` returns text, but `+ 1` needs a number. The text and the number cannot be added directly.
+
+#### How to fix it
+
+```python
+age = int(input("How old are you? "))
+print(age + 1)
+```
+
 **Practise:** Ask for a product price and quantity, convert both to numbers, and print the total.
+
+---
 
 ## 5. Operators
 
@@ -219,7 +356,42 @@ can_enter = has_ticket and event_is_open
 print(can_enter)
 ```
 
+### Common mistakes
+
+#### Correct code
+
+```python
+score = 75
+print(score >= 50)
+```
+
+#### Wrong code
+
+```python
+score = 75
+print(score = 50)
+```
+
+#### Error
+
+```text
+SyntaxError: invalid syntax
+```
+
+#### Why it happens
+
+`=` is used to assign a value, while `==` is used to compare values.
+
+#### How to fix it
+
+```python
+score = 75
+print(score == 50)
+```
+
 **Practise:** Use `+`, `-`, `/`, `>`, `==`, and `and` in small examples.
+
+---
 
 ## 6. Conditions
 
@@ -274,7 +446,45 @@ else:
     print("Login failed")
 ```
 
+### Common mistakes
+
+#### Correct code
+
+```python
+age = 20
+if age >= 18:
+    print("Adult")
+```
+
+#### Wrong code
+
+```python
+age = 20
+if age >= 18:
+print("Adult")
+```
+
+#### Error
+
+```text
+IndentationError: expected an indented block
+```
+
+#### Why it happens
+
+The code inside an `if` block must be indented. Python uses indentation to decide what belongs to the condition.
+
+#### How to fix it
+
+```python
+age = 20
+if age >= 18:
+    print("Adult")
+```
+
 **Practise:** Write a condition that prints `Free delivery` when an order total is at least 50.
+
+---
 
 ## 7. Loops
 
@@ -322,7 +532,42 @@ for name in names:
         break
 ```
 
+### Common mistakes
+
+#### Correct code
+
+```python
+for number in range(3):
+    print(number)
+```
+
+#### Wrong code
+
+```python
+for number in range(3)
+    print(number)
+```
+
+#### Error
+
+```text
+SyntaxError: invalid syntax
+```
+
+#### Why it happens
+
+The `for` statement needs a colon at the end. The colon tells Python that a block of code will follow.
+
+#### How to fix it
+
+```python
+for number in range(3):
+    print(number)
+```
+
 **Practise:** Loop through a list of five numbers and print only numbers greater than 10.
+
+---
 
 ## 8. Lists and dictionaries
 
@@ -364,7 +609,42 @@ product["price"] = 30
 print(product)
 ```
 
+### Common mistakes
+
+#### Correct code
+
+```python
+employee = {"name": "Maya", "department": "IT"}
+print(employee["name"])
+```
+
+#### Wrong code
+
+```python
+employee = {"name": "Maya", "department": "IT"}
+print(employee[name])
+```
+
+#### Error
+
+```text
+NameError: name 'name' is not defined
+```
+
+#### Why it happens
+
+The key `"name"` in the dictionary is text. Without quotes, Python treats it like a variable name.
+
+#### How to fix it
+
+```python
+employee = {"name": "Maya", "department": "IT"}
+print(employee["name"])
+```
+
 **Practise:** Create a dictionary for a student with a name, course, and score. Update the score and print it.
+
+---
 
 ## 9. Functions
 
@@ -409,7 +689,44 @@ order_total = calculate_total(10, 3)
 print(order_total)
 ```
 
+### Common mistakes
+
+#### Correct code
+
+```python
+def say_hello():
+    print("Hello")
+
+say_hello()
+```
+
+#### Wrong code
+
+```python
+def say_hello():
+print("Hello")
+```
+
+#### Error
+
+```text
+IndentationError: expected an indented block
+```
+
+#### Why it happens
+
+Any code inside a function must be indented. Without indentation, Python cannot tell which lines are inside the function.
+
+#### How to fix it
+
+```python
+def say_hello():
+    print("Hello")
+```
+
 **Practise:** Write a `convert_minutes_to_seconds(minutes)` function and return the answer.
+
+---
 
 ## Beginner mini-projects
 
