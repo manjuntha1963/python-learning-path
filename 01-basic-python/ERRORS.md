@@ -1,147 +1,597 @@
-# How to Learn From Python Errors
+# Python Errors: Three Examples for Every Beginner Topic
 
-When practising each topic, use this order:
+Yes. This single file contains **three error examples for every beginner topic**.
 
-1. **Correct code** — run working code first so you understand the expected result.
-2. **Wrong code** — change one small part on purpose.
-3. **Error message** — read the last line first; it usually tells you the error type.
-4. **Why it happens** — identify which Python rule was broken.
-5. **How to fix it** — compare the wrong and correct versions, then run the corrected code.
-6. **Practise again** — change the input and confirm the program still works.
+Use this order every time:
 
-## Example: variable name
+1. Run the correct code.
+2. Run the wrong code intentionally.
+3. Read the error type and line number.
+4. Understand why it happened.
+5. Apply the fix and run the code again.
 
-### Correct code
+> Some mistakes produce a Python error. Other mistakes produce a result that is technically valid but logically wrong. Both are important to practise.
 
+## 1. `print()` and comments
+
+### Error 1: Missing parentheses
+
+**Correct code:**
 ```python
-# Create a variable before using it.
+print("Hello")
+```
+
+**Wrong code:**
+```python
+print "Hello"
+```
+
+**Error:** `SyntaxError: Missing parentheses in call to 'print'`
+
+**Why:** In Python 3, `print` is a function and needs parentheses.
+
+**Fix:**
+```python
+print("Hello")
+```
+
+### Error 2: Missing quotation marks
+
+**Correct code:**
+```python
+print("Welcome to Python")
+```
+
+**Wrong code:**
+```python
+print(Welcome to Python)
+```
+
+**Error:** `SyntaxError` or `NameError`
+
+**Why:** Text must be inside matching quotation marks. Without them, Python treats the words as code.
+
+**Fix:**
+```python
+print("Welcome to Python")
+```
+
+### Error 3: Unclosed quotation mark
+
+**Correct code:**
+```python
+print("Python is fun")
+```
+
+**Wrong code:**
+```python
+print("Python is fun)
+```
+
+**Error:** `SyntaxError: unterminated string literal`
+
+**Why:** The opening double quote has no closing double quote.
+
+**Fix:**
+```python
+print("Python is fun")
+```
+
+## 2. Variables and names
+
+### Error 1: Using a variable too early
+
+**Correct code:**
+```python
 employee_age = 28
-
-# Print the value stored in the variable.
 print(employee_age)
 ```
 
-**What happens:** Python prints `28` because the variable exists before `print()` uses it.
-
-### Wrong code
-
+**Wrong code:**
 ```python
-# Try to print a variable that has not been created yet.
 print(employee_age)
-```
-
-### Error
-
-```text
-NameError: name 'employee_age' is not defined
-```
-
-### Why it happens
-
-Python reads instructions from top to bottom. There is no `employee_age` variable when `print()` runs.
-
-### How to fix it
-
-```python
-# Create the variable first.
 employee_age = 28
-
-# Use it after it has been created.
-print(employee_age)
 ```
 
-## Example: input and numbers
+**Error:** `NameError: name 'employee_age' is not defined`
 
-### Correct code
+**Why:** Python reads from top to bottom. The variable does not exist when it is printed.
 
+**Fix:** Create the variable before using it.
+
+### Error 2: Invalid space in a name
+
+**Correct code:**
 ```python
-# Convert the text entered by the user into a whole number.
-age = int(input("Enter your age: "))
+employee_age = 28
+```
 
-# Add one to calculate the age next year.
+**Wrong code:**
+```python
+employee age = 28
+```
+
+**Error:** `SyntaxError: invalid syntax`
+
+**Why:** Spaces are not allowed inside variable names.
+
+**Fix:** Use snake_case with an underscore: `employee_age`.
+
+### Error 3: Name spelling does not match
+
+**Correct code:**
+```python
+course_name = "Python"
+print(course_name)
+```
+
+**Wrong code:**
+```python
+course_name = "Python"
+print(course)
+```
+
+**Error:** `NameError: name 'course' is not defined`
+
+**Why:** `course` and `course_name` are two different names.
+
+**Fix:** Use exactly the same name everywhere.
+
+## 3. Basic data types
+
+### Error 1: Text without quotes
+
+**Correct code:**
+```python
+city_name = "London"
+```
+
+**Wrong code:**
+```python
+city_name = London
+```
+
+**Error:** `NameError: name 'London' is not defined`
+
+**Why:** Python thinks `London` is a variable instead of text.
+
+**Fix:** Put text inside quotes.
+
+### Error 2: Adding text and a number
+
+**Correct code:**
+```python
+item_count = 3
+print(item_count + 2)
+```
+
+**Wrong code:**
+```python
+item_count = "3"
+print(item_count + 2)
+```
+
+**Error:** `TypeError: can only concatenate str (not "int") to str`
+
+**Why:** `"3"` is a string, while `2` is an integer. Python cannot add these types directly.
+
+**Fix:** Remove the quotes or convert the text with `int()`.
+
+### Error 3: Lowercase Boolean
+
+**Correct code:**
+```python
+is_ready = True
+```
+
+**Wrong code:**
+```python
+is_ready = true
+```
+
+**Error:** `NameError: name 'true' is not defined`
+
+**Why:** Python Boolean values are exactly `True` and `False`, with capital letters.
+
+**Fix:**
+```python
+is_ready = True
+```
+
+## 4. User input and conversion
+
+### Error 1: Using input as a number
+
+**Correct code:**
+```python
+age = int(input("Age: "))
 print(age + 1)
 ```
 
-### Wrong code
-
+**Wrong code:**
 ```python
-# input() returns text, not a number.
-age = input("Enter your age: ")
-
-# Python cannot add a number to text.
+age = input("Age: ")
 print(age + 1)
 ```
 
-### Error
+**Error:** `TypeError: can only concatenate str (not "int") to str`
 
-```text
-TypeError: can only concatenate str (not "int") to str
+**Why:** `input()` always returns text.
+
+**Fix:** Convert it with `int()` for whole numbers or `float()` for decimals.
+
+### Error 2: Invalid numeric input
+
+**Correct code:**
+```python
+number = int("25")
+print(number)
 ```
 
-### Why it happens
-
-Even if the user types `28`, `input()` returns the string `"28"`. Python cannot add the integer `1` to a string.
-
-### How to fix it
-
-Use `int()` when you need a whole number, or `float()` when decimal values are allowed:
-
+**Wrong code:**
 ```python
-# int() changes numeric text into an integer.
-age = int(input("Enter your age: "))
-print(age + 1)
+number = int("twenty-five")
 ```
 
-## Example: condition indentation
+**Error:** `ValueError: invalid literal for int()`
 
-### Correct code
+**Why:** `int()` can convert numeric text, but not words.
 
+**Fix:** Ask the user for digits or handle the error with `try` and `except`.
+
+### Error 3: Wrong variable name in an f-string
+
+**Correct code:**
 ```python
-# Store the person's age.
-age = 20
+user_name = "Asha"
+print(f"Hello, {user_name}")
+```
 
-# The colon starts the condition's code block.
+**Wrong code:**
+```python
+user_name = "Asha"
+print(f"Hello, {username}")
+```
+
+**Error:** `NameError: name 'username' is not defined`
+
+**Why:** The created name is `user_name`, not `username`.
+
+**Fix:** Match the variable name exactly.
+
+## 5. Operators
+
+### Error 1: Confusing `=` and `==`
+
+**Correct code:**
+```python
+score = 75
+print(score == 75)
+```
+
+**Wrong code:**
+```python
+score = 75
+print(score = 75)
+```
+
+**Error:** `SyntaxError: invalid syntax`
+
+**Why:** `=` assigns a value; `==` compares two values.
+
+**Fix:** Use `==` when asking a comparison question.
+
+### Error 2: Dividing by zero
+
+**Correct code:**
+```python
+items = 10
+people = 2
+print(items / people)
+```
+
+**Wrong code:**
+```python
+print(10 / 0)
+```
+
+**Error:** `ZeroDivisionError: division by zero`
+
+**Why:** Division by zero is mathematically undefined.
+
+**Fix:** Check that the divisor is not zero before dividing.
+
+### Error 3: Comparing different types
+
+**Correct code:**
+```python
+score = 75
+print(score == 75)
+```
+
+**Wrong code:**
+```python
+score = 75
+print(score == "75")
+```
+
+**Result:** `False`
+
+**Why:** The number `75` and the text `"75"` are different types. This is a logic mistake, not a syntax error.
+
+**Fix:** Convert or use the same type on both sides.
+
+## 6. Conditions
+
+### Error 1: Missing colon
+
+**Correct code:**
+```python
 if age >= 18:
-    # Indentation shows that this line belongs to the if statement.
     print("Adult")
 ```
 
-### Wrong code
-
+**Wrong code:**
 ```python
-age = 20
+if age >= 18
+    print("Adult")
+```
+
+**Error:** `SyntaxError: invalid syntax`
+
+**Why:** Python requires a colon before the indented block.
+
+**Fix:** Add `:` after the condition.
+
+### Error 2: Missing indentation
+
+**Correct code:**
+```python
+if age >= 18:
+    print("Adult")
+```
+
+**Wrong code:**
+```python
 if age >= 18:
 print("Adult")
 ```
 
-### Error
+**Error:** `IndentationError: expected an indented block`
 
-```text
-IndentationError: expected an indented block
-```
+**Why:** Python uses indentation to show which code belongs to the `if` statement.
 
-### Why it happens
+**Fix:** Indent the block, normally with four spaces.
 
-Python uses indentation to group code. The `print()` line must be indented beneath the `if` statement.
+### Error 3: Wrong order of `elif` and `else`
 
-### How to fix it
-
+**Correct code:**
 ```python
-age = 20
-if age >= 18:
-    print("Adult")
+if score >= 90:
+    print("A")
+elif score >= 75:
+    print("B")
+else:
+    print("C or below")
 ```
 
-## Error checklist for every topic
+**Wrong code:**
+```python
+if score >= 90:
+    print("A")
+else:
+    print("C or below")
+elif score >= 75:
+    print("B")
+```
 
-Before asking for help, check:
+**Error:** `SyntaxError: invalid syntax`
 
-- Did I type the name exactly the same way everywhere?
-- Did I close every bracket, parenthesis, and quotation mark?
-- Did I add a colon after `if`, `for`, `while`, `def`, and `class`?
-- Is the code inside a block indented consistently?
-- Am I mixing text and numbers without converting them?
-- Did I read the error type and the line number?
-- Can I reproduce the error with a smaller example?
+**Why:** `elif` must come before the final `else`.
 
-The main beginner topics will use this same format: **correct code first, wrong code second, error message, plain-English reason, and fixed code**.
+**Fix:** Put all `elif` branches before `else`.
+
+## 7. Loops
+
+### Error 1: Missing colon after `for`
+
+**Correct code:**
+```python
+for number in range(3):
+    print(number)
+```
+
+**Wrong code:**
+```python
+for number in range(3)
+    print(number)
+```
+
+**Error:** `SyntaxError: invalid syntax`
+
+**Why:** A loop statement must end with a colon.
+
+**Fix:** Add `:` after `range(3)`.
+
+### Error 2: Missing indentation in a loop
+
+**Correct code:**
+```python
+for number in range(3):
+    print(number)
+```
+
+**Wrong code:**
+```python
+for number in range(3):
+print(number)
+```
+
+**Error:** `IndentationError: expected an indented block`
+
+**Why:** The repeated code must be inside the loop block.
+
+**Fix:** Indent `print(number)`.
+
+### Error 3: Index outside a list
+
+**Correct code:**
+```python
+names = ["Asha", "Ben"]
+print(names[1])
+```
+
+**Wrong code:**
+```python
+names = ["Asha", "Ben"]
+print(names[2])
+```
+
+**Error:** `IndexError: list index out of range`
+
+**Why:** A two-item list has indexes `0` and `1`; index `2` does not exist.
+
+**Fix:** Use a valid index or loop through the list.
+
+## 8. Lists and dictionaries
+
+### Error 1: Missing dictionary key
+
+**Correct code:**
+```python
+employee = {"name": "Maya"}
+print(employee["name"])
+```
+
+**Wrong code:**
+```python
+employee = {"name": "Maya"}
+print(employee["age"])
+```
+
+**Error:** `KeyError: 'age'`
+
+**Why:** The dictionary does not contain an `age` key.
+
+**Fix:** Use an existing key or use `employee.get("age", "Not provided")`.
+
+### Error 2: Using a string index for a list
+
+**Correct code:**
+```python
+tasks = ["Read", "Practise"]
+print(tasks[0])
+```
+
+**Wrong code:**
+```python
+tasks = ["Read", "Practise"]
+print(tasks["first"])
+```
+
+**Error:** `TypeError: list indices must be integers or slices, not str`
+
+**Why:** Lists use numeric indexes; dictionaries use named keys.
+
+**Fix:** Use `tasks[0]` or change the data to a dictionary.
+
+### Error 3: Calling a list method on a dictionary
+
+**Correct code:**
+```python
+tasks = ["Read"]
+tasks.append("Practise")
+```
+
+**Wrong code:**
+```python
+employee = {"name": "Maya"}
+employee.append("IT")
+```
+
+**Error:** `AttributeError: 'dict' object has no attribute 'append'`
+
+**Why:** `append()` belongs to lists, not dictionaries.
+
+**Fix:** Add a dictionary key instead: `employee["department"] = "IT"`.
+
+## 9. Functions
+
+### Error 1: Missing colon after `def`
+
+**Correct code:**
+```python
+def say_hello():
+    print("Hello")
+```
+
+**Wrong code:**
+```python
+def say_hello()
+    print("Hello")
+```
+
+**Error:** `SyntaxError: invalid syntax`
+
+**Why:** A function definition must end with a colon.
+
+**Fix:** Add `:` after the closing parenthesis.
+
+### Error 2: Wrong number of arguments
+
+**Correct code:**
+```python
+def greet(person_name):
+    print(f"Hello, {person_name}")
+
+greet("Asha")
+```
+
+**Wrong code:**
+```python
+def greet(person_name):
+    print(f"Hello, {person_name}")
+
+greet("Asha", "Kumar")
+```
+
+**Error:** `TypeError: greet() takes 1 positional argument but 2 were given`
+
+**Why:** The function defines one parameter but receives two values.
+
+**Fix:** Pass one value or update the function definition to accept two parameters.
+
+### Error 3: Calling a function before defining it
+
+**Correct code:**
+```python
+def say_hello():
+    print("Hello")
+
+say_hello()
+```
+
+**Wrong code:**
+```python
+say_hello()
+
+def say_hello():
+    print("Hello")
+```
+
+**Error:** `NameError: name 'say_hello' is not defined`
+
+**Why:** Python reaches the call before it has created the function.
+
+**Fix:** Define the function before calling it.
+
+## Debugging checklist
+
+- Read the final line of the error first.
+- Look at the line number Python reports.
+- Check spelling and capitalization.
+- Check quotation marks, brackets, parentheses, and colons.
+- Check indentation.
+- Check whether values have the correct data type.
+- Test the smallest possible version of the code.
+- Fix one error at a time.
