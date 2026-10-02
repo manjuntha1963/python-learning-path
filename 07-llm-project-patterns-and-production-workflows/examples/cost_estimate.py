@@ -1,6 +1,6 @@
 # Purpose: Calculate the cost of using an LLM API.
 # Token pricing is the primary cost model for most LLM providers.
-
+#
 # This function calculates the total API cost using:
 # - input token count
 # - output token count
@@ -11,6 +11,16 @@
 # Because LLM providers usually quote prices per 1 million tokens.
 # If the call uses 1000 tokens, then 1000 / 1,000,000 is the fraction of a million tokens used.
 # Then we multiply by the rate to get the actual cost.
+#
+# Common mistake:
+# People sometimes forget to divide by 1,000,000 and multiply the raw token count directly.
+# That creates a much larger and incorrect cost number.
+#
+# Error example:
+# input_cost = input_tokens * input_rate
+# This is wrong because the price is not per single token; it is per 1 million tokens.
+#
+# Fix: divide by 1_000_000 before multiplying.
 
 
 def estimate_cost(
@@ -30,11 +40,6 @@ def estimate_cost(
 
     Returns:
         Total cost in dollars for the request.
-
-    Example:
-        If input_tokens = 1000 and output_tokens = 500,
-        with rates input_rate = 0.03 and output_rate = 0.06,
-        then cost = (1000 / 1_000_000) * 0.03 + (500 / 1_000_000) * 0.06
     """
     # Calculate the cost of the input portion of the request
     # For example, a prompt of 1000 tokens uses 0.001 of 1 million tokens

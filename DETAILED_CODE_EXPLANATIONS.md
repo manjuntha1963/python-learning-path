@@ -68,6 +68,7 @@ Every example in this repo is designed to be understandable with a consistent pa
 - Variable names are designed to be readable.
 - Comments explain non-obvious steps.
 - Real-world notes explain why the code matters.
+- Common mistakes and fixes show how to debug real problems.
 
 ## Detailed explanation of the LLM cost example
 
@@ -126,6 +127,107 @@ Finally:
 ```
 
 This adds the input cost and output cost, then returns the overall total.
+
+## Common mistakes, errors, and fixes
+
+This repository follows a debugging pattern:
+
+1. show the wrong code
+2. explain the error
+3. explain why it happens
+4. show the correct code and fix
+
+### Example 1: ML input shape issue
+
+```python
+from sklearn.linear_model import LinearRegression
+import numpy as np
+
+X = np.array([1, 2, 3])
+model = LinearRegression()
+model.fit(X, [2, 4, 6])
+```
+
+Error:
+
+```text
+ValueError: Expected 2D array, got 1D array instead
+```
+
+Why it happens:
+
+`LinearRegression` expects a 2D feature array, not a simple 1D list.
+
+Fix:
+
+```python
+X = np.array([[1], [2], [3]])
+model.fit(X, [2, 4, 6])
+```
+
+### Example 2: LLM token cost mistake
+
+```python
+def estimate_cost(input_tokens, output_tokens, input_rate, output_rate):
+    return input_tokens * input_rate + output_tokens * output_rate
+```
+
+Error:
+
+This produces an incorrect result because rates are given per 1 million tokens, not per token.
+
+Fix:
+
+```python
+def estimate_cost(input_tokens, output_tokens, input_rate, output_rate):
+    input_cost = (input_tokens / 1_000_000) * input_rate
+    output_cost = (output_tokens / 1_000_000) * output_rate
+    return input_cost + output_cost
+```
+
+### Example 3: QA search mismatch
+
+```python
+question = "What is Python?"
+if "python" in question:
+    print("Found")
+```
+
+This works only when the casing is matched. A user may type `Python` or `PYTHON`, which may fail if the code is case-sensitive.
+
+Fix:
+
+```python
+question = "What is Python?"
+if "python" in question.lower():
+    print("Found")
+```
+
+### Example 4: Interview problem logic issue
+
+Incorrect approach:
+
+```python
+for i in range(len(nums)):
+    for j in range(i + 1, len(nums)):
+        if nums[i] + nums[j] == target:
+            return [i, j]
+```
+
+This works, but it is slower. It has `O(n^2)` time complexity.
+
+Better fix:
+
+```python
+seen = {}
+for i, value in enumerate(nums):
+    needed = target - value
+    if needed in seen:
+        return [seen[needed], i]
+    seen[value] = i
+```
+
+This is faster and more interview-friendly.
 
 ## Example: a beginner-friendly explanation of a module 01 script
 
@@ -218,7 +320,8 @@ Always check:
 - loops and recursion
 - exceptions and edge cases
 - memory and performance trade-offs
+- common mistakes and how to fix them
 
 ## Final note
 
-The goal of this repository is not only to show code, but to teach how to reason about code. When you understand why each line exists, you become much better at debugging, writing your own projects, and answering technical interview questions.
+The goal of this repository is not only to show code, but to teach how to reason about code. When you understand why each line exists, and when you know how to debug common errors, you become much better at building projects, diagnosing issues, and answering technical interview questions.
